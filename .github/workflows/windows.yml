@@ -30,7 +30,7 @@ jobs:
         ren my_flutter_app.exe "SDR Converter.exe"
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3  # Updated to use v3
       with:
         name: SDR Converter
         path: build/windows/runner/Release/SDR Converter.exe
