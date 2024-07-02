@@ -1,0 +1,36 @@
+name: Build Windows App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: 'stable'
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Build Windows
+      run: flutter build windows
+
+    - name: Rename executable
+      run: |
+        cd build/windows/runner/Release
+        ren my_flutter_app.exe "SDR Converter.exe"
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: SDR Converter
+        path: build/windows/runner/Release/SDR Converter.exe
